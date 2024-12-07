@@ -11,6 +11,7 @@ This project implements a modern version of the classic Enigma machine using an 
 - **Wi-Fi Connectivity**: Connect to a Wi-Fi network to access the web interface.
 - **Web Interface**: Control the Enigma machine and view logs through a web interface.
 - **Sound Effects**: Play sound effects for rotor steps and notifications.
+- **LED Lights**: Uses two LED lights to show the state of the machine. 
 - **Logging**: Log messages and events with timestamps.
 
 ## Hardware Requirements
@@ -54,21 +55,86 @@ Connect the hardware components as follows:
 
 ## Usage Instructions
 
-### Web Interface
+### Web Interface Layout
+The web interface consists of two main columns:
+- Left column: Controls and settings
+- Right column: Message display and console output
 
-1. **Access the Web Interface**: Open a web browser and navigate to the IP address displayed on the LED matrix.
-2. **Message Input**:
-   - Enter your message in the input field and click "Display Message" to show it on the LED matrix.
-3. **Enigma Settings**:
-   - Select the operation mode (Encrypt or Decrypt).
-   - Set the rotor positions for Rotor I, Rotor II, and Rotor III.
-   - Click "Process Message" to encrypt or decrypt the message.
-4. **Toggle Scroll**:
-   - Click "Toggle Scroll" to enable or disable scrolling of the message on the LED matrix.
-5. **Retry**:
-   - Click "Retry" to reset the message to its original state.
-6. **View Logs**:
-   - The console output section displays logs and events.
+### Controls and Features
+
+#### Message Input
+1. Enter your message in the text input field
+2. Click "Display Message" to show it on the LED matrix display
+
+#### Operation Mode Selection
+- Use the dropdown to select between:
+  - **Encrypt**: Converts plaintext into encrypted message
+  - **Decrypt**: Converts encrypted message back to plaintext
+
+#### Rotor Settings
+Configure the three rotors (I, II, III):
+- Each rotor can be set to positions A-Z
+- These settings must match for encryption/decryption of the same message
+- The rotor positions affect the encryption pattern
+
+### Action Buttons
+
+#### Process Message
+- Click to encrypt/decrypt based on current mode
+- Uses the configured rotor positions
+- Shows results on LED matrix and in Current Message display
+- Green LED indicates decryption mode
+- Orange LED indicates encryption mode
+
+#### Toggle Scroll
+- Switches between scrolling and static display on LED matrix
+- Affects how the message appears on the physical display
+- Current state is logged in console output
+
+#### Retry
+- Resets message to its original state:
+  - In encryption mode: Returns to original input
+  - In decryption mode: Returns to encrypted message
+- Useful for trying different rotor configurations
+
+### Theme Toggle
+- Button in top-right corner
+- Switches between light and dark display modes
+- Settings persist across browser sessions
+
+### Display Panels
+
+#### Current Message
+- Shows the active message after processing
+- Updates automatically after encryption/decryption
+- Displays in monospace font for clarity
+
+#### Console Output
+- Shows system logs and operations
+- Includes timestamps
+- Auto-scrolls to latest entries
+- Useful for tracking operations and debugging
+
+## Typical Usage Flow
+
+1. **For Encryption**:
+   - Select "Encrypt" mode
+   - Enter your plaintext message
+   - Click "Display Message"
+   - Set rotor positions
+   - Click "Process Message"
+   - Note the encrypted result
+
+2. **For Decryption**:
+   - Select "Decrypt" mode
+   - Enter the encrypted message
+   - Click "Display Message"
+   - Set same rotor positions used for encryption
+   - Click "Process Message"
+   - View the decrypted result
+
+The LED matrix will display the current message with optional scrolling, and status LEDs indicate the current operation mode.
+
 
 ### API Endpoints
 
@@ -79,21 +145,6 @@ Connect the hardware components as follows:
 - **Process Message**: `/process` (POST) - Encrypts or decrypts the message based on the rotor positions and mode.
 - **Current Message**: `/currentMessage` (GET) - Retrieves the current message being displayed.
 - **Reset Message**: `/reset` (POST) - Resets the message to its original state.
-
-### Example Usage
-
-1. **Encrypt a Message**:
-   - Set the operation mode to "Encrypt".
-   - Set the rotor positions (e.g., A, B, C).
-   - Enter the message "HELLO" and click "Display Message".
-   - Click "Process Message" to encrypt the message.
-   - The encrypted message will be displayed on the LED matrix and logged.
-
-2. **Decrypt a Message**:
-   - Set the operation mode to "Decrypt".
-   - Set the rotor positions to the same values used during encryption.
-   - Click "Process Message" to decrypt the message.
-   - The decrypted message will be displayed on the LED matrix and logged.
 
 ## Code Explanation
 
@@ -121,4 +172,4 @@ Connect the hardware components as follows:
 
 ## Conclusion
 
-This ESP32 Enigma Machine project provides a modern implementation of the classic encryption device with a web interface for easy control and monitoring. Follow the setup and usage instructions to get started with encrypting and decrypting messages using your own Enigma machine. Enjoy exploring the fascinating world of cryptography!
+This ESP32 Enigma Machine project provides a modern implementation of the classic encryption device with a web interface for easy control and monitoring. Follow the setup and usage instructions to get started with encrypting and decrypting messages using your own Enigma machine.
